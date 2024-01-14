@@ -147,11 +147,51 @@ int main(int, char *[])
 
     std::cout << std::setprecision(10) << "Investment (max): " << I_max << std::endl;
 
-    std::string const invest_str = ::invest_str(Investments);
-    fp64 const invest_total = ::invest_total(Investments);
-    fp64 const divid_total = ::dividend_total(Investments);
+    fp64 max_dividends = 0.0;
 
-    std::cout << invest_str << "\t" << invest_total << "\t" << divid_total << std::endl;
+    bool finished = false;
+    size_t loop_count = 0U;
+
+    while (not finished)
+    {
+        ++loop_count;
+
+        {
+            auto const divid_total = ::dividend_total(Investments);
+
+            if (divid_total >= max_dividends)
+            {
+                auto const invest_str = ::invest_str(Investments);
+                auto const invest_total = ::invest_total(Investments);
+
+                std::cout << invest_str << "\t" << invest_total << "\t" << divid_total << std::endl;
+
+                max_dividends = divid_total;
+            }
+        }
+
+        size_t miss_count = 0U;
+
+        for (auto &invest: Investments)
+        {
+            auto const count = invest->count();
+            invest->count(count + 1U);
+
+            auto const invest_total = ::invest_total(Investments);
+
+            if (invest_total < I_max)
+            {
+                break;
+            }
+
+            invest->count(1U);
+            ++miss_count;
+        }
+
+        finished = (miss_count >= Investments.size());
+    }
+
+    std::cout << "Loop counter: " << loop_count << std::endl;
 
     return EXIT_SUCCESS;
 }
