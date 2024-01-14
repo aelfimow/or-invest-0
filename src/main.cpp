@@ -73,6 +73,28 @@ class Investment
 
 namespace
 {
+    template <class T> std::string invest_str(T const &investments)
+    {
+        std::string result { };
+
+        for (auto &invest: investments)
+        {
+            std::string const str = std::to_string(invest->count());
+
+            if (result.empty())
+            {
+                result.append(str);
+            }
+            else
+            {
+                result.append("\t");
+                result.append(str);
+            }
+        }
+
+        return result;
+    }
+
     template <class T> fp64 invest_total(T const &investments)
     {
         fp64 result = 0.0;
@@ -80,6 +102,18 @@ namespace
         for (auto &invest: investments)
         {
             result += invest->price_total();
+        }
+
+        return result;
+    }
+
+    template <class T> fp64 dividend_total(T const &investments)
+    {
+        fp64 result = 0.0;
+
+        for (auto &invest: investments)
+        {
+            result += invest->dividend_total();
         }
 
         return result;
@@ -113,8 +147,11 @@ int main(int, char *[])
 
     std::cout << std::setprecision(10) << "Investment (max): " << I_max << std::endl;
 
+    std::string const invest_str = ::invest_str(Investments);
     fp64 const invest_total = ::invest_total(Investments);
-    std::cout << "Investment total: " << invest_total << std::endl;
+    fp64 const divid_total = ::dividend_total(Investments);
+
+    std::cout << invest_str << "\t" << invest_total << "\t" << divid_total << std::endl;
 
     return EXIT_SUCCESS;
 }
