@@ -2,6 +2,7 @@
 #include <cmath>
 #include <iostream>
 #include <iomanip>
+#include <list>
 
 using fp64 = double;
 static_assert(sizeof(fp64) == 8U);
@@ -70,6 +71,21 @@ class Investment
         size_t m_count;
 };
 
+namespace
+{
+    template <class T> fp64 invest_total(T const &investments)
+    {
+        fp64 result = 0.0;
+
+        for (auto &invest: investments)
+        {
+            result += invest->price_total();
+        }
+
+        return result;
+    }
+}
+
 int main(int, char *[])
 {
     fp64 const I_max = 10.0E3;
@@ -90,7 +106,15 @@ int main(int, char *[])
     C.dividend(0.51);
     C.count(1U);
 
+    std::list<Investment *> Investments
+    {
+        &A, &B, &C
+    };
+
     std::cout << std::setprecision(10) << "Investment (max): " << I_max << std::endl;
+
+    fp64 const invest_total = ::invest_total(Investments);
+    std::cout << "Investment total: " << invest_total << std::endl;
 
     return EXIT_SUCCESS;
 }
