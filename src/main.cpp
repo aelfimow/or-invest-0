@@ -30,6 +30,13 @@ class Investment
             return m_price;
         }
 
+        fp64 price_total() const
+        {
+            fp64 const count = static_cast<fp64>(m_count);
+            fp64 const result = (m_price * count);
+            return result;
+        }
+
         void dividend(fp64 value)
         {
             m_dividend = value;
@@ -38,6 +45,13 @@ class Investment
         fp64 dividend() const
         {
             return m_dividend;
+        }
+
+        fp64 dividend_total() const
+        {
+            fp64 const count = static_cast<fp64>(m_count);
+            fp64 const result = (m_dividend * count);
+            return result;
         }
 
         void count(size_t value)
