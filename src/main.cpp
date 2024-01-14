@@ -137,27 +137,32 @@ int main(int, char *[])
     fp64 const I_max = 10.0E3;
 
     Investment A { };
-    Investment B { };
-    Investment C { };
-
-    A.price(45.0);
-    A.dividend(3.40);
-    A.min_count(20U);
+    A.price(12.6);
+    A.dividend(0.51);
+    A.min_count(0U);
     A.count(A.min_count());
 
-    B.price(99.0);
-    B.dividend(5.96);
-    B.min_count(10U);
+    Investment B { };
+    B.price(25.86);
+    B.dividend(1.68);
+    B.min_count(0U);
     B.count(B.min_count());
 
-    C.price(12.6);
-    C.dividend(0.51);
-    C.min_count(100U);
+    Investment C { };
+    C.price(45.0);
+    C.dividend(3.40);
+    C.min_count(0U);
     C.count(C.min_count());
+
+    Investment D { };
+    D.price(99.0);
+    D.dividend(5.96);
+    D.min_count(0U);
+    D.count(D.min_count());
 
     std::list<Investment *> Investments
     {
-        &A, &B, &C
+        &A, &B, &C, &D
     };
 
     std::cout << std::setprecision(10) << "Investment (max): " << I_max << std::endl;
