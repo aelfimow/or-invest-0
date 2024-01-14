@@ -60,6 +60,22 @@ int main(int, char *[])
 {
     fp64 const I_max = 10.0E3;
 
+    Investment A { };
+    Investment B { };
+    Investment C { };
+
+    A.price(45.0);
+    A.dividend(3.40);
+    A.count(1U);
+
+    B.price(99.0);
+    B.dividend(5.96);
+    B.count(1U);
+
+    C.price(12.6);
+    C.dividend(0.51);
+    C.count(1U);
+
     std::cout << std::setprecision(10) << "Investment (max): " << I_max << std::endl;
 
     return EXIT_SUCCESS;
