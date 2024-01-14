@@ -40,9 +40,9 @@ class Investment
             return m_dividend;
         }
 
-        void count(size_t count)
+        void count(size_t value)
         {
-            m_count = count;
+            m_count = value;
         }
 
         size_t count() const
