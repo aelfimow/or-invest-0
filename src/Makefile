@@ -13,6 +13,11 @@ CXXFLAGS += -Wdiv-by-zero
 CXXFLAGS += -Wfloat-conversion
 CXXFLAGS += -Wfloat-equal
 
-all:
+all: main.o Investment.o
+	${CXX} main.o Investment.o -o main.exe
+
+main.o: main.cpp
 	${CXX} -c main.cpp -o main.o ${CXXFLAGS}
-	${CXX} main.o -o main.exe
+
+Investment.o: Investment.cpp Investment.h Types.h
+	${CXX} -c Investment.cpp -o Investment.o ${CXXFLAGS}
