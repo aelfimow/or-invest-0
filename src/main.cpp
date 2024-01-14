@@ -4,84 +4,8 @@
 #include <iomanip>
 #include <list>
 
-using fp64 = double;
-static_assert(sizeof(fp64) == 8U);
-
-class Investment
-{
-    public:
-        Investment() :
-            m_price { 0.0 },
-            m_dividend { 0.0 },
-            m_count { 0 },
-            m_min_count { 0 }
-        {
-        }
-
-        ~Investment()
-        {
-        }
-
-        void price(fp64 value)
-        {
-            m_price = value;
-        }
-
-        fp64 price() const
-        {
-            return m_price;
-        }
-
-        fp64 price_total() const
-        {
-            fp64 const count = static_cast<fp64>(m_count);
-            fp64 const result = (m_price * count);
-            return result;
-        }
-
-        void dividend(fp64 value)
-        {
-            m_dividend = value;
-        }
-
-        fp64 dividend() const
-        {
-            return m_dividend;
-        }
-
-        fp64 dividend_total() const
-        {
-            fp64 const count = static_cast<fp64>(m_count);
-            fp64 const result = (m_dividend * count);
-            return result;
-        }
-
-        void count(size_t value)
-        {
-            m_count = value;
-        }
-
-        size_t count() const
-        {
-            return m_count;
-        }
-
-        void min_count(size_t value)
-        {
-            m_min_count = value;
-        }
-
-        size_t min_count() const
-        {
-            return m_min_count;
-        }
-
-    private:
-        fp64 m_price;
-        fp64 m_dividend;
-        size_t m_count;
-        size_t m_min_count;
-};
+#include "Types.h"
+#include "Investment.h"
 
 namespace
 {
