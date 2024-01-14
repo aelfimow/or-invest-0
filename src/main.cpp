@@ -13,7 +13,8 @@ class Investment
         Investment() :
             m_price { 0.0 },
             m_dividend { 0.0 },
-            m_count { 0 }
+            m_count { 0 },
+            m_min_count { 0 }
         {
         }
 
@@ -65,10 +66,21 @@ class Investment
             return m_count;
         }
 
+        void min_count(size_t value)
+        {
+            m_min_count = value;
+        }
+
+        size_t min_count() const
+        {
+            return m_min_count;
+        }
+
     private:
         fp64 m_price;
         fp64 m_dividend;
         size_t m_count;
+        size_t m_min_count;
 };
 
 namespace
@@ -130,15 +142,18 @@ int main(int, char *[])
 
     A.price(45.0);
     A.dividend(3.40);
-    A.count(1U);
+    A.min_count(20U);
+    A.count(A.min_count());
 
     B.price(99.0);
     B.dividend(5.96);
-    B.count(1U);
+    B.min_count(10U);
+    B.count(B.min_count());
 
     C.price(12.6);
     C.dividend(0.51);
-    C.count(1U);
+    C.min_count(100U);
+    C.count(C.min_count());
 
     std::list<Investment *> Investments
     {
@@ -184,7 +199,7 @@ int main(int, char *[])
                 break;
             }
 
-            invest->count(1U);
+            invest->count(invest->min_count());
             ++miss_count;
         }
 
