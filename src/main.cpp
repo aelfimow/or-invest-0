@@ -134,30 +134,31 @@ namespace
 
 int main(int, char *[])
 {
-    fp64 const I_max = 10.0E3;
+    fp64 const I_max = 20.0E3;
+    fp64 const I_min = (I_max - 500.0);
 
     Investment A { };
-    A.price(12.6);
-    A.dividend(0.51);
-    A.min_count(0U);
+    A.price(6.85);
+    A.dividend(0.47);
+    A.min_count(100U);
     A.count(A.min_count());
 
     Investment B { };
-    B.price(25.86);
-    B.dividend(1.68);
-    B.min_count(0U);
+    B.price(62.50);
+    B.dividend(5.20);
+    B.min_count(20U);
     B.count(B.min_count());
 
     Investment C { };
-    C.price(45.0);
+    C.price(48.50);
     C.dividend(3.40);
-    C.min_count(0U);
+    C.min_count(20U);
     C.count(C.min_count());
 
     Investment D { };
-    D.price(99.0);
-    D.dividend(5.96);
-    D.min_count(0U);
+    D.price(18.0);
+    D.dividend(1.15);
+    D.min_count(50U);
     D.count(D.min_count());
 
     std::list<Investment *> Investments
@@ -177,16 +178,20 @@ int main(int, char *[])
         ++loop_count;
 
         {
-            auto const divid_total = ::dividend_total(Investments);
+            auto const invest_total = ::invest_total(Investments);
 
-            if (divid_total >= max_dividends)
+            if (invest_total > I_min)
             {
-                auto const invest_str = ::invest_str(Investments);
-                auto const invest_total = ::invest_total(Investments);
+                auto const divid_total = ::dividend_total(Investments);
 
-                std::cout << invest_str << "\t" << invest_total << "\t" << divid_total << std::endl;
+                if (divid_total >= max_dividends)
+                {
+                    auto const invest_str = ::invest_str(Investments);
 
-                max_dividends = divid_total;
+                    std::cout << invest_str << "\t" << invest_total << "\t" << divid_total << std::endl;
+
+                    max_dividends = divid_total;
+                }
             }
         }
 
